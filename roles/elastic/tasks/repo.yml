@@ -1,0 +1,12 @@
+ - name: copy over ES repo
+   copy:
+    src: elasticsearch.repo
+    dest: /etc/yum.repos.d/elasticsearch.repo
+    owner: root
+    group: root
+    mode: 0644
+
+ - name: also the opennms repo
+   yum:
+    name: "https://yum.opennms.org/repofiles/opennms-repo-stable-rhel7.noarch.rpm"
+    state: installed

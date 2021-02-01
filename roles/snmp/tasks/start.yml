@@ -1,0 +1,6 @@
+
+ - name: make sure snmpd is running
+   service:
+    name: snmpd
+    state: started
+    enabled: true

@@ -1,0 +1,8 @@
+
+ - name: copy over es config
+   template:
+    src: elasticsearch.yml
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+    mode: 0660

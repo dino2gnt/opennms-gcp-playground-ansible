@@ -1,0 +1,30 @@
+
+ - name: we need openjdk
+   yum:
+    name: "java-11-openjdk,java-11-openjdk-headless,java-11-openjdk-devel"
+    state: installed
+
+ - name: get installed minion version
+   command: rpm -q --qf %{version}\\n%{version}-%{release} opennms-minion  warn=False
+   ignore_errors: true
+   register: minion_ver_result
+ 
+ - set_fact:
+     installed_minion_ver: "{{ minion_ver_result.stdout_lines[0] | default('0') }}"
+ 
+ #\/Helpful debug messages
+ - debug:
+     msg: "Installed {{ installed_minion_ver }} is less than variable {{ minion_version }}"
+   when: installed_minion_ver|int is version(minion_version, 'lt')
+ - debug:
+     msg: "Installed {{ installed_minion_ver }} is greater than variable {{ minion_version }}"
+   when: installed_minion_ver|int is version(minion_version, 'gt')
+ #^^Helpful debug messages
+ 
+ - name: Verify latest minion is installed
+   yum:
+     name: opennms-minion
+     disable_plugin: fastestmirror
+     state: latest
+     disable_gpg_check: true
+   when: minion_ver_result.failed == True or installed_minion_ver|int is version(minion_version, 'lt') 

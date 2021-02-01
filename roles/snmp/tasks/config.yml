@@ -1,0 +1,8 @@
+
+ - name: copy config over 
+   template:
+    src: snmpd.conf
+    dest: /etc/snmp/snmpd.conf
+    owner: root
+    group: root
+    mode: 0660

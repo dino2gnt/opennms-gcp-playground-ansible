@@ -1,0 +1,71 @@
+
+ - name: Copy the sysconfig/minion into place
+   template:
+    src: sysconfig-minion
+    dest: /etc/sysconfig/minion
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: Copy the org.opennms.minion.controller.cfg into place
+   template:
+    src: org.opennms.minion.controller.cfg
+    dest: "{{ minion_home }}/etc/org.opennms.minion.controller.cfg"
+    owner: root
+    group: root
+    mode: 0640
+   ignore_errors: yes
+
+ - name: Copy the org.opennms.minion.controller.cfg into place
+   copy:
+    src: org.opennms.features.telemetry.listeners-udp-9999.cfg
+    dest: "{{ minion_home }}/etc/org.opennms.features.telemetry.listeners-udp-9999.cfg"
+    owner: root
+    group: root
+    mode: 0640
+   ignore_errors: yes
+
+ - name: Copy the org.opennms.core.ipc.sink.kafka.cfg into place
+   template:
+    src: org.opennms.core.ipc.sink.kafka.cfg
+    dest: "{{ minion_home }}/etc/org.opennms.core.ipc.sink.kafka.cfg"
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: Copy the org.opennms.core.ipc.rpc.kafka.cfg ino place
+   template:
+    src: org.opennms.core.ipc.rpc.kafka.cfg
+    dest: "{{ minion_home }}/etc/org.opennms.core.ipc.rpc.kafka.cfg"
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: Copy the kafka.boot
+   copy:
+    src: kafka.boot
+    dest: "{{ minion_home }}/etc/featuresBoot.d/kafka.boot"
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: Set the Minion options with scvcli
+   command: ./bin/scvcli set opennms.http minion minion
+   args:
+    chdir: "{{ minion_home }}"
+
+ - name: Set the Minion options with scvcli
+   command: ./bin/scvcli set opennms.broker minion minion
+   args:
+    chdir: "{{ minion_home }}"
+
+ - name: kafka keeps handing out its hostname, which is crap, so kludge it
+   lineinfile:
+    path: /etc/hosts
+    line: "{{ kafka_ip }} {{ kafka_hostname }}"
+    owner: root
+    group: root
+
+ - name: open port in local firewall
+   command: firewall-cmd --permanent --add-port 9999/udp
+   notify: reload-firewall

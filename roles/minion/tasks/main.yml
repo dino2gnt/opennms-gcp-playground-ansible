@@ -1,0 +1,6 @@
+
+ - include_tasks: minion_repo.yml
+ - include_tasks: minion_install.yml
+ - include_tasks: minion_config.yml
+ - include_tasks: minion_startup.yml
+ - include_tasks: minion_check.yml

@@ -1,0 +1,48 @@
+
+- hosts: elastic*
+  tasks:
+    - debug: msg="Including elastic Role"
+    - include_role:
+         name: elastic
+
+- hosts: kafka*
+  tasks:
+    - debug: msg="Including kafka Role"
+    - include_role:
+         name: kafka
+
+- hosts: grafana
+  tasks:
+    - debug: msg="Including grafana Role"
+    - include_role:
+         name: grafana
+
+- hosts: opennms
+  tasks:
+    - debug: msg="Including opennms Role"
+    - include_role:
+         name: opennms
+
+- hosts: minion*
+  tasks:
+    - debug: msg="Including minion Role"
+    - include_role:
+         name: minion
+
+- hosts: gateway
+  tasks:
+    - debug: msg="Including tinyvpn Role"
+    - include_role:
+         name: tinyvpn
+
+- hosts: all
+  tasks:
+    - debug: msg="Including snmp Role"
+    - include_role:
+         name: snmp
+
+- hosts: all
+  tasks:
+    - debug: msg="Including hsflowd Role"
+    - include_role:
+         name: hsflowd

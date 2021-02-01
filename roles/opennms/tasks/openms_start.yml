@@ -1,0 +1,22 @@
+
+ - name: are we configured?
+   stat: 
+    path: /opt/opennms/etc/configured
+   register: configured
+
+ - name: runjava
+   command: /opt/opennms/bin/runjava -s
+   when: configured.stat.exists == False
+   ignore_errors: true
+
+ - name: run the installer (if we need to)
+   command: /opt/opennms/bin/install -dis
+   when: configured.stat.exists == False
+   ignore_errors: true
+
+ - name: Start it up.
+   service:
+    name: opennms
+    state: started
+    enabled: true
+   ignore_errors: true

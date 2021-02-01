@@ -1,0 +1,9 @@
+
+minion_version: "27.0.3"
+
+minion_home: "/opt/minion"
+
+minion_location: "test-minion" #this could be defined somewhere else in the tree, probably
+
+kafka_ip: "192.168.100.10" #maybe more eventually
+kafka_hostname: "kafka1.playground.foo"

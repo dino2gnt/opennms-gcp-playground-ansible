@@ -1,0 +1,5 @@
+
+ - name: install snmpd
+   yum:
+    name: net-snmp
+    state: installed

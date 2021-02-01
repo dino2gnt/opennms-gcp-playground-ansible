@@ -1,0 +1,46 @@
+<userinfo xmlns="http://xmlns.opennms.org/xsd/users">
+   <header>
+      <rev>.9</rev>
+      <created>2021-01-29T16:42:16.062-06:00</created>
+      <mstation>master.nmanage.com</mstation>
+   </header>
+   <users>
+      <user>
+         <user-id>admin</user-id>
+         <full-name>Administrator</full-name>
+         <user-comments>Default administrator, do not delete</user-comments>
+         <password salt="true">02RIwKPKRD9vTzEKxzjbEcJcDPUPBADM/PbFXtyDcbkMQOrx4HTkilbjrPUSrc69</password>
+         <contact type="email"/>
+         <contact type="pagerEmail"/>
+         <contact type="xmppAddress"/>
+         <contact type="microblog"/>
+         <contact type="numericPage"/>
+         <contact type="textPage"/>
+         <contact type="workPhone"/>
+         <contact type="mobilePhone"/>
+         <contact type="homePhone"/>
+         <role>ROLE_ADMIN</role>
+      </user>
+      <user>
+         <user-id>minion</user-id>
+         <password salt="true">I+L4yZlZC4PKMz1NicKmLMY6cc7Gb4XaV3k6hV3QgyguBzryIpADkJ0DXLkPcJ9e</password>
+         <contact type="email"/>
+         <contact type="pagerEmail"/>
+         <contact type="xmppAddress"/>
+         <contact type="microblog"/>
+         <contact type="numericPage"/>
+         <contact type="textPage"/>
+         <contact type="workPhone"/>
+         <contact type="mobilePhone"/>
+         <contact type="homePhone"/>
+         <role>ROLE_MINION</role>
+      </user>
+      <user>
+         <user-id>rtc</user-id>
+         <full-name>RTC</full-name>
+         <user-comments>RTC user, do not delete</user-comments>
+         <password>68154466F81BFB532CD70F8C71426356</password>
+         <role>ROLE_RTC</role>
+      </user>
+   </users>
+</userinfo>

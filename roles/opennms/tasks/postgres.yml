@@ -1,0 +1,34 @@
+
+ - name: Install postgres repo
+   yum:
+    name: "https://ftp.postgresql.org/pub/repos/yum/common/redhat/rhel-7-x86_64/pgdg-redhat-repo-42.0-14.noarch.rpm" #this URL changes :-/
+
+ - name: Install postgresql 10
+   yum:
+    name: "postgresql10-server,postgresql10"
+    enablerepo: pgdg10
+
+ - name: run initdb
+   command: "/usr/pgsql-10/bin/postgresql-10-setup initdb"
+   ignore_errors: true
+
+ - name:
+   template:
+    src: pg_hba.conf
+    dest: /var/lib/pgsql/10/data/pg_hba.conf
+    owner: postgres
+    group: postgres
+
+ - name: start & enable
+   service:
+    name: postgresql-10
+    state: started
+    enabled: true
+
+ - name: Create the opennms user and db
+   shell: |
+     su - postgres -c "createuser -w opennms; createdb -O opennms opennms;"
+     su - postgres -c "psql -c \"ALTER USER postgres WITH PASSWORD 'opennms';\""
+     su - postgres -c "psql -c \"ALTER USER opennms WITH PASSWORD 'opennms';\""
+   args:
+    warn: no

@@ -1,0 +1,7 @@
+- name: ansible-pull
+  hosts: localhost
+  user: root
+  connection: local
+  ignore_errors: yes
+
+- import_playbook: includes.yml

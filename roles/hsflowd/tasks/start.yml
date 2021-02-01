@@ -1,0 +1,7 @@
+
+ - name: start and enable hsflowd
+   service:
+    name: hsflowd
+    state: started
+    enabled: true
+

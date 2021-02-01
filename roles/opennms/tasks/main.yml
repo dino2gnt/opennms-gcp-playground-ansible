@@ -1,0 +1,6 @@
+ 
+ - include_tasks: openms_repo.yml 
+ - include_tasks: postgres.yml
+ - include_tasks: openms_install.yml
+ - include_tasks: openms_config.yml
+ - include_tasks: openms_start.yml

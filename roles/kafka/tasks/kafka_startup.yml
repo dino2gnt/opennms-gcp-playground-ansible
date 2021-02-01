@@ -1,0 +1,12 @@
+
+ - name: enable & start zookeeper
+   service:
+    name: zookeeper
+    state: started
+    enabled: true
+
+ - name: enable & start kafka
+   service:
+    name: kafka
+    state: started
+    enabled: true

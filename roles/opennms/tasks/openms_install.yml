@@ -1,0 +1,12 @@
+
+ - name: we need openjdk
+   yum:
+    name: "java-11-openjdk,java-11-openjdk-headless,java-11-openjdk-devel"
+    state: installed
+
+ - name: Install OpenNMS {{ opennms_version }}
+   yum:
+     name: "opennms-core-{{ opennms_version }}.noarch,opennms-webapp-jetty-{{ opennms_version }}.noarch,opennms-webapp-hawtio-{{ opennms_version }}.noarch"
+     disable_plugin: fastestmirror
+     state: latest
+     disable_gpg_check: true

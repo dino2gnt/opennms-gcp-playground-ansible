@@ -1,0 +1,52 @@
+
+ - name: Does the kafka directotry already exist?
+   stat: path=/opt/kafka-{{ scala_version }}-{{ kafka_version }}
+   register: kafka_dir
+
+ - name: Download the Kafka tarball
+   get_url:
+    url: "{{ kafka_tarball }}"
+    dest: /tmp/kafka-{{ scala_version }}-{{ kafka_version }}.tar.gz
+    owner: root
+    group: root
+    mode: 0644
+   when: kafka_dir.stat.exists == False
+
+ - name: Unpack the kafka binaries
+   unarchive:
+    remote_src: yes
+    src: /tmp/kafka-{{ scala_version }}-{{ kafka_version }}.tar.gz
+    dest: /opt/
+   when: kafka_dir.stat.exists == False
+
+ - name: Symlink the version I just unpacked to /opt/kafka
+   file:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    state: link
+   with_items:
+    - { src: '/opt/kafka_{{ scala_version }}-{{ kafka_version }}', dest: '/opt/kafka' }
+
+ - name: Install OpenJDK too
+   yum:
+    name: "java-11-openjdk,java-11-openjdk-headless,java-11-openjdk-devel"
+    disable_gpg_check: yes
+    state: installed
+
+ - name: Unit for Kafka
+   copy:
+    src: kafka_systemd.service
+    dest: /usr/lib/systemd/system/kafka.service
+    owner: root
+    group: root
+    mode: 0644
+   notify: reload-systemd
+
+ - name: Unit for Zookeeper
+   copy:
+    src: zookeeper_systemd.service
+    dest: /usr/lib/systemd/system/zookeeper.service
+    owner: root
+    group: root
+    mode: 0644
+   notify: reload-systemd

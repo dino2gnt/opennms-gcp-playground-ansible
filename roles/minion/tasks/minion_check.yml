@@ -1,0 +1,4 @@
+#Make sure the Minion is running...
+
+ - name: Make sure the minion is running
+   command: service minion start

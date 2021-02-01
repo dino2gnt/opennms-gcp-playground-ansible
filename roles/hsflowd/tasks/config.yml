@@ -1,0 +1,8 @@
+
+ - name: template over the config
+   template:
+    src: hsflowd.conf
+    dest: /etc/hsflowd.conf
+    mode: 0644
+    owner: root
+    group: root

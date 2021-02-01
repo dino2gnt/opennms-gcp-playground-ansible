@@ -1,0 +1,14 @@
+
+ - name: copy over grafana repo
+   copy:
+    src: grafana.repo
+    dest: /etc/yum.repos.d/grafana.repo
+    owner: root
+    group: root
+
+ - name: install the opennms repo for Helm
+   yum:
+     name: "{{item}}"
+     disable_gpg_check: yes
+     state: installed
+   with_items: "https://yum.opennms.org/repofiles/opennms-repo-stable-rhel7.noarch.rpm"

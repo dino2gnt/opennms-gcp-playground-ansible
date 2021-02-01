@@ -1,0 +1,16 @@
+
+- name: Configure minion service state and status
+  service:
+    name: minion
+    state: started
+    enabled: true
+  ignore_errors: true
+
+- name: Make sure minion is running - service module seems unreliable here
+  command: /sbin/service minion status warn=false
+  register: minion_status
+  ignore_errors: true
+
+- name: Start it if it's not running
+  command: /sbin/service minion start warn=false
+  when: minion_status is defined and minion_status.stdout is search("stopped") 

@@ -1,0 +1,57 @@
+
+ - name: copy kafka.properties
+   copy:
+    src: kafka_server.properties
+    dest: "{{ kafka_home }}/config/kafka_server.properties"
+    owner: root
+    group: root
+    mode: 0644
+
+ - name: copy zookeeper.properties
+   copy:
+    src: zookeeper.properties
+    dest: "{{ kafka_home }}/config/zookeeper.properties"
+    owner: root
+    group: root
+    mode: 0644
+
+#kafka_jaas.conf            kafka_limits.conf          kafka_profile.sh
+ - name: copy jass config into place 
+   copy:
+    src: kafka_jaas.conf
+    dest: "{{ kafka_home }}/config/kafka_jaas.conf"
+    owner: root
+    group: root
+    mode: 0644
+
+ - name: copy profile script
+   copy:
+    src: kafka_profile.sh
+    dest: /etc/profile.d/kafka_profile.sh
+    owner: root
+    group: root
+    mode: 0644
+
+ - name: copy limits
+   copy:
+    src: kafka_limits.conf
+    dest: /etc/security/kafka_limits.conf
+    owner: root
+    group: root
+    mode: 0644
+
+ - name: Create the kafka directory
+   file:
+    path: /data/kafka
+    owner: root
+    group: root
+    mode: 0750
+    state: directory
+
+ - name: Create the zookeeper directory
+   file:
+    path: /data/zookeeper
+    owner: root
+    group: root
+    mode: 0750
+    state: directory

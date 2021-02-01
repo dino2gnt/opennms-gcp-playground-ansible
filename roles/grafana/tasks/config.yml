@@ -1,0 +1,23 @@
+
+ - name: copy the grafana config
+   copy:
+    src: grafana.ini
+    dest: "{{ grafana_etc }}/grafana.ini"
+
+ - name: reset grafana pass
+   command: /usr/sbin/grafana-cli admin reset-admin-password {{ grafana_pass }}
+
+ - name: fix for https://github.com/grafana/grafana/issues/25367
+   file:
+    path: /var/log/grafana
+    owner: grafana
+    group: grafana
+    recurse: true
+    
+ - name: fix for https://github.com/grafana/grafana/issues/25367
+   file:
+    path: /var/lib/grafana
+    owner: grafana
+    group: grafana
+    recurse: true
+    

@@ -1,0 +1,11 @@
+
+kafka_home: "/opt/kafka"
+
+scala_version: "2.13"
+kafka_version: "2.7.0"
+
+#ftp://ftp.osuosl.org/pub/apache/kafka/2.7.0/kafka_2.13-2.7.0.tgz
+kafka_mirror: "http://ftp.osuosl.org/pub/apache/kafka"
+kafka_tarball: "{{ kafka_mirror }}/{{ kafka_version }}/kafka_{{ scala_version }}-{{ kafka_version }}.tgz"
+
+kafka_servers: "192.168.100.10:9092" #Maybe more eventually

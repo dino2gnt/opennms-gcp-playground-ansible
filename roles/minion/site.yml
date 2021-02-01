@@ -1,0 +1,10 @@
+
+ - import_playbook: ../../groups.yml
+
+ - name: Minion role side entry point
+   hosts: localhost all
+   tasks:
+    - debug: msg="Including OpenNMS Minion role"
+    - include_tasks: ../global/tasks/import_vars.yml
+    - include_role:
+         name: ../../minion

@@ -1,0 +1,5 @@
+
+ - include_tasks: kafka_install.yml
+ - include_tasks: kafka_config.yml
+ - include_tasks: kafka_startup.yml
+

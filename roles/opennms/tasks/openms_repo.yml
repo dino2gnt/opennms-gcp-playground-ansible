@@ -1,0 +1,6 @@
+
+ - name: OpenNMS repo for EL7
+   yum:
+     name: "https://yum.opennms.org/repofiles/opennms-repo-stable-rhel7.noarch.rpm"
+     disable_gpg_check: yes
+     state: installed

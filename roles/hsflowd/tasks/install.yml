@@ -1,0 +1,22 @@
+
+ - name: install the hsflow daemon
+   yum:
+    name: "https://github.com/sflow/host-sflow/releases/download/v2.0.25-3/hsflowd-centos7-2.0.25-3.x86_64.rpm"  #meh, variablize this better
+    state: installed
+    lock_timeout: "60"
+    disable_gpg_check: true 
+   ignore_errors: true
+
+ - name: also install libpcap!
+   yum:
+    name: libpcap
+    state: installed
+
+ - name: Unit for hsflowd
+   copy:
+    src: hsflowd.service
+    dest: /usr/lib/systemd/system/hsflowd.service
+    owner: root
+    group: root
+    mode: 0644
+   notify: reload-systemd

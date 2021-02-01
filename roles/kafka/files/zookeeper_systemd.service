@@ -1,0 +1,16 @@
+[Unit]
+Description=Apache Zookeeper server
+Documentation=http://zookeeper.apache.org
+Wants=network-online.target
+After=network-online.target
+[Service]
+Type=simple
+User=root
+Group=root
+Environment="KAFKA_HEAP_OPTS=-Xmx1g -Xms1g"
+Environment="KAFKA_JMX_OPTS=-Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.rmi.port=9997 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=%H -Djava.net.preferIPv4Stack=true"
+Environment="JMX_PORT=9997"
+ExecStart=/opt/kafka/bin/zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties
+ExecStop=/opt/kafka/bin/zookeeper-server-stop.sh
+[Install]
+WantedBy=multi-user.target

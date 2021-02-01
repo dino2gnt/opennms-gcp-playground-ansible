@@ -1,0 +1,6 @@
+
+ - name: startup elasticsearch
+   service:
+    name: elasticsearch
+    state: started
+    enabled: true

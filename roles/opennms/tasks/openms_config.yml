@@ -1,0 +1,71 @@
+
+ - name: opennms-datasources.xml
+   template:
+    src: opennms-datasources.xml
+    dest: /opt/opennms/etc/opennms-datasources.xml
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: org.opennms.features.kafka.producer.client.cfg
+   template:
+    src: org.opennms.features.kafka.producer.client.cfg
+    dest: /opt/opennms/etc/org.opennms.features.kafka.producer.client.cfg
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: org.opennms.features.kafka.producer.cfg
+   copy:
+    src: org.opennms.features.kafka.producer.cfg 
+    dest: /opt/opennms/etc/org.opennms.features.kafka.producer.cfg
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: org.opennms.features.kafka.producer.client.cfg
+   template:
+    src: org.opennms.features.flows.persistence.elastic.cfg
+    dest: /opt/opennms/etc/org.opennms.features.flows.persistence.elastic.cfg
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: Copy the discovery-configuration.xml
+   template:
+    src: discovery-configuration.xml
+    dest: /opt/opennms/etc/discovery-configuration.xml
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: Copy the users.xml
+   copy:
+    src: users.xml
+    dest: /opt/opennms/etc/users.xml
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: Copy the foreign source
+   copy:
+    src: default-foreign-source.xml
+    dest: /opt/opennms/etc/default-foreign-source.xml
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: Copy the kafka.properties
+   template:
+    src: opennms.properties.kafka
+    dest: /opt/opennms/etc/opennms.properties.d/kafka.properties
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: kafka keeps handing out its hostname, which is crap, so kludge it
+   lineinfile:
+    path: /etc/hosts
+    line: "{{ kafka_ip }} {{ kafka_hostname }}"
+    owner: root
+    group: root
