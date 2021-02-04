@@ -69,3 +69,11 @@
     line: "{{ kafka_ip }} {{ kafka_hostname }}"
     owner: root
     group: root
+    state: present
+
+ - name: add the kafka producer to the karaf features
+   lineinfile:
+    path: /opt/opennms/etc/org.apache.karaf.features.cfg
+    line: "  opennms-kafka-producer, \\"
+    insertbefore: "^.*opennms-karaf-health.*$"
+    state: present
