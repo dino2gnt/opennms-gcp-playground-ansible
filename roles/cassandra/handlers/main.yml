@@ -1,0 +1,11 @@
+
+- name: restart cassandra
+  service:
+    name: cassandra
+    state: restarted
+
+- name: HUP sshd
+  service:
+    name: sshd
+    state: restarted
+

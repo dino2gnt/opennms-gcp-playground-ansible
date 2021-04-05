@@ -29,6 +29,12 @@
     - include_role:
          name: minion
 
+- hosts: cassandra*
+  tasks:
+    - debug: msg="Including cassandra Role"
+    - include_role:
+         name: cassandra
+
 - hosts: gateway
   tasks:
     - debug: msg="Including tinyvpn Role"

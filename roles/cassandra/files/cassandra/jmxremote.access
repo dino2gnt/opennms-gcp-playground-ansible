@@ -1,0 +1,2 @@
+opennms readonly
+cassandra readwrite

@@ -1,0 +1,20 @@
+
+ - name: Add systemd unit for Cassandra
+   copy:
+    src: cassandra.service
+    dest: /usr/lib/systemd/system/cassandra.service
+    owner: root
+    group: root
+    mode: 0644
+
+ - name: Enable the service
+   command: systemctl enable cassandra.service
+
+ - name: Is there a Cassandra already running?
+   command: systemctl is-active cassandra.service
+   ignore_errors: true
+   register: is_active
+
+ - name: Start it up!
+   command: systemctl start cassandra.service
+   when: is_active.stdout == 'inactive'

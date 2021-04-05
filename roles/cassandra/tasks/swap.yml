@@ -1,0 +1,12 @@
+ - name: Comment out swap in fstab
+   lineinfile:
+     dest: /etc/fstab
+     backrefs: yes
+     regexp: "{{ item.regexp }}"
+     line: "{{ item.line }}"
+   with_items:
+     - { regexp: '^([^#].*\sswap\s.*)', line: '#\1' }
+
+ - name: Turn off swap
+   command: /sbin/swapoff -a
+

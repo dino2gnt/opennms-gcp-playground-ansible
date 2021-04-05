@@ -1,0 +1,59 @@
+
+ - name: Does the cassandra directotry already exist?
+   stat: path=/opt/apache-cassandra-{{cass_version}}
+   register: cass_dir
+
+ - name: Copy the Cassandra tar.gz over
+   get_url:
+    url: "{{ cass_url }}"
+    dest: /tmp/apache-cassandra-{{cass_version}}-bin.tar.gz
+    owner: root
+    group: root
+    mode: 0644
+   when: cass_dir.stat.exists == False
+
+ - name: Unpack the Cassandra binaries
+   unarchive:
+    remote_src: yes
+    src: /tmp/apache-cassandra-{{cass_version}}-bin.tar.gz
+    dest: /opt/
+   when: cass_dir.stat.exists == False
+
+ - name: Symlink the version I just unpacked to /opt/cassandra-current
+   file:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    state: link
+   with_items:
+    - { src: '/opt/apache-cassandra-{{cass_version}}', dest: '/opt/cassandra-current' }
+
+ - name: Install the 64bit JRE too
+   yum:
+    name: "java-1.8.0-openjdk,java-1.8.0-openjdk-devel,java-1.8.0-openjdk-headless"
+    disable_gpg_check: yes
+    state: installed
+
+ - name: Create the data directory
+   file:
+    path: /opt/cassandra-current/data/
+    owner: cassandra
+    group: cassandra
+    mode: 0750
+    state: directory    
+
+ - name: Create the lib directory
+   file:
+    path: /var/lib/cassandra
+    owner: cassandra
+    group: cassandra
+    mode: 0750
+    state: directory    
+
+ - name: Create the log directory
+   file:
+    path: /var/log/cassandra
+    owner: cassandra
+    group: cassandra
+    mode: 0750
+    state: directory    
+

@@ -1,0 +1,36 @@
+
+ - name: make sure mountpoints exist
+   file:
+    path: /data/sstable
+    state: directory
+
+ - name: make sure mountpoints exist
+   file:
+    path: /data/commit_log
+    state: directory
+
+ - name: add the logical volumes to fstab
+   lineinfile:
+     dest: /etc/fstab
+     line: "{{ item.line }}"
+     state: present
+   with_items:
+     - { line: '/dev/mapper/vg.cassandra-commitlog /data/commit_log           xfs     defaults        0 0' }
+     - { line: '/dev/mapper/vg.cassandra-sstable /data/sstable                  xfs     defaults        0 0' }
+
+ - name: Mount everything 
+   command: /usr/bin/mount -a
+
+ - name: chown sstable path
+   file:
+     owner: cassandra
+     group: cassandra
+     mode: 0750
+     path: /data/sstable
+
+ - name: chown commit_log path
+   file:
+     owner: cassandra
+     group: cassandra
+     mode: 0750
+     path: /data/commit_log
