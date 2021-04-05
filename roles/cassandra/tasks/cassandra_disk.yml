@@ -1,0 +1,51 @@
+ - name: Does sdb exist in a state we can safely touch it?
+   set_fact:
+     disk_unpart: True
+   when: ansible_devices.sdb.partitions is defined and ansible_devices.sdb.partitions == {}
+ - debug: msg="{{ansible_devices.sdb.partitions}}"
+
+ - name: Create pv partition
+   parted:
+     device: /dev/sdb #a 1536GB disk / exactly 1.5 binary TB
+     part_start: 0%
+     part_end: 100%
+     number: 1
+     flags: [ lvm ]
+     label: gpt
+     name: cassandra
+     state: present
+   when: disk_unpart is defined and disk_unpart == True
+    
+ - name: Create a volume group on top of /dev/sdb
+   lvg:
+     vg: vg.cassandra
+     pvs: /dev/sdb1
+   when: disk_unpart is defined and disk_unpart == True
+ 
+ - name: Create a logical volume for sstable 
+   lvol:
+     vg: vg.cassandra
+     lv: sstable
+     size: 93%FREE
+   when: disk_unpart is defined and disk_unpart == True
+ 
+ - name: Create a logical volume for commitlog 
+   lvol:
+     vg: vg.cassandra
+     lv: commitlog
+     size: 100%FREE
+   when: disk_unpart is defined and disk_unpart == True
+ 
+ - name: Create a filesystem on sstable
+   filesystem:
+     fstype: xfs
+     dev: /dev/vg.cassandra/sstable
+     force: no
+   when: disk_unpart is defined and disk_unpart == True
+ 
+ - name: Create a filesystem on commitlog
+   filesystem:
+     fstype: xfs
+     dev: /dev/vg.cassandra/commitlog
+     force: no
+   when: disk_unpart is defined and disk_unpart == True

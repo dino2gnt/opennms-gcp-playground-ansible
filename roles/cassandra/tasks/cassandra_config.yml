@@ -1,0 +1,53 @@
+
+ - name: Copy the jmxrmi auth files over
+   copy:
+    src: cassandra
+    dest: /etc/
+    owner: cassandra
+    group: root
+    mode: 0600
+   notify: restart cassandra
+
+ - name: copy cassandra-env.sh into install dir
+   template:
+    src: cassandra-env.sh.j2
+    dest: /opt/cassandra-current/conf/cassandra-env.sh
+    owner: root
+    group: root
+    mode: 0644
+   notify: restart cassandra
+
+ - name: copy cassandra startup file into bin
+   copy:
+    src: cassandra-start
+    dest: /opt/cassandra-current/bin/cassandra
+    owner: root
+    group: root
+    mode: 0755
+
+ - name: copy config template into install dir
+   template:
+    src: cassandra.yaml.j2
+    dest: /opt/cassandra-current/conf/cassandra.yaml
+    owner: root
+    group: root
+    mode: 0644
+   notify: restart cassandra
+
+ - name: copy dc-rack config 
+   copy:
+    src: cassandra-rackdc.properties
+    dest: /opt/cassandra-current/conf/cassandra-rackdc.properties
+    owner: root
+    group: root
+    mode: 0644
+   notify: restart cassandra
+
+ - name: copy jvm.options
+   copy:
+    src: jvm.options
+    dest: /opt/cassandra-current/conf/jvm.options
+    owner: root
+    group: root
+    mode: 0644
+   notify: restart cassandra

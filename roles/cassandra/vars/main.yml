@@ -1,0 +1,6 @@
+cass_data_dir: "/data/sstable"
+cass_commitlog_dir: "/data/commit_log"
+cass_saved_caches_dir: "/var/lib/cassandra/saved_caches"
+cass_seeds_list: "192.168.100.100"
+cass_version: "3.11.10"
+cass_url: "https://mirrors.sonic.net/apache/cassandra/{{ cass_version  }}/apache-cassandra-{{ cass_version  }}-bin.tar.gz"

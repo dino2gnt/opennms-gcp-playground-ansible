@@ -1,0 +1,10 @@
+
+ - include_tasks: cassandra_disk.yml
+ - include_tasks: user.yml
+ - include_tasks: fstab.yml
+ - include_tasks: swap.yml
+ - include_tasks: limits.yml
+ - include_tasks: sysctl.yml
+ - include_tasks: cassandra_pkg.yml
+ - include_tasks: cassandra_config.yml
+ - include_tasks: cassandra_startup.yml

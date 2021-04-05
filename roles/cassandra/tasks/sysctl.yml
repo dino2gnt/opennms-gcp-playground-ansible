@@ -1,0 +1,13 @@
+ - name: Copy in sysctl files to sysctl.d
+   copy:
+     src: 99-cassandra.conf
+     dest: /etc/sysctl.d/
+     owner: root
+     group: root
+     mode: 0644
+   register: copied
+
+ - name: run sysctl -p
+   shell: /usr/sbin/sysctl -p /etc/sysctl.d/99-cassandra.conf
+   ignore_errors: True
+   when: copied is succeeded

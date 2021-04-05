@@ -1,0 +1,3 @@
+Cmnd_Alias CASSANDRA_ALLOWED_COMMANDS = /opt/cassandra-current/bin/cqlsh
+User_Alias CASSANDRA_PRIV_USERS = dino.yancey, pkafley, otonees, mkroken
+CASSANDRA_PRIV_USERS ALL=NOPASSWD:CASSANDRA_ALLOWED_COMMANDS

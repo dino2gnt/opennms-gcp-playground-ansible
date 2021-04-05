@@ -1,0 +1,10 @@
+- name: edit /etc/ecurity/limits.conf for cassandra
+  lineinfile:
+    dest: /etc/security/limits.conf
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - { line: 'cassandra       hard    nofile  150000' }
+    - { line: 'cassandra       hard    nproc   unlimited' }
+    - { line: 'cassandra       hard    memlock unlimited' }
+

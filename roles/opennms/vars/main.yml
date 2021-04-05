@@ -4,3 +4,4 @@ kafka_ip: "192.168.100.10" #maybe more eventually?
 kafka_hostname: "kafka1.playground.foo"
 kafka_servers: "192.168.100.10:9092" #maybe more eventually?
 elastic_ip: "192.168.100.30" #maybe more eventually?
+cassandra_ip: "192.168.100.100" #maybe more eventually?

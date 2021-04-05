@@ -47,10 +47,26 @@
     group: root
     mode: 0640
 
+ - name: Copy collectd-configuration.xml
+   copy:
+    src: collectd-configuration.xml
+    dest: /opt/opennms/etc/collectd-configuration.xml
+    owner: root
+    group: root
+    mode: 0640
+
  - name: Copy the foreign source
    copy:
     src: default-foreign-source.xml
     dest: /opt/opennms/etc/default-foreign-source.xml
+    owner: root
+    group: root
+    mode: 0640
+
+ - name: Copy the newts.properties
+   template:
+    src: opennms.properties.newts
+    dest: /opt/opennms/etc/opennms.properties.d/newts.properties
     owner: root
     group: root
     mode: 0640

@@ -51,8 +51,8 @@
       <detector name="JMX-Cassandra" class="org.opennms.netmgt.provision.detector.jmx.Jsr160Detector">
          <parameter key="factory" value="PASSWORD-CLEAR"/>
          <parameter key="port" value="7199"/>
-         <parameter key="username" value="cassandra-username"/>
-         <parameter key="password" value="cassandra-password"/>
+         <parameter key="username" value="opennms"/>
+         <parameter key="password" value="opennms"/>
          <parameter key="urlPath" value="/jmxrmi"/>
          <parameter key="retries" value="2"/>
          <parameter key="type" value="default"/>
@@ -62,8 +62,8 @@
       <detector name="JMX-Cassandra-Newts" class="org.opennms.netmgt.provision.detector.jmx.Jsr160Detector">
          <parameter key="factory" value="PASSWORD-CLEAR"/>
          <parameter key="port" value="7199"/>
-         <parameter key="username" value="cassandra-username"/>
-         <parameter key="password" value="cassandra-password"/>
+         <parameter key="username" value="opennms"/>
+         <parameter key="password" value="opennms"/>
          <parameter key="urlPath" value="/jmxrmi"/>
          <parameter key="retries" value="2"/>
          <parameter key="type" value="default"/>
@@ -73,6 +73,10 @@
       </detector>
       <detector name="MS-RDP" class="org.opennms.netmgt.provision.detector.simple.TcpDetector">
          <parameter key="port" value="3389"/>
+      </detector>
+      <detector name="PostgresSQL" class="org.opennms.netmgt.provision.detector.simple.TcpDetector">
+         <parameter key="port" value="5432"/>
+         <parameter key="timeout" value="3000"/>
       </detector>
    </detectors>
    <policies/>

@@ -1,0 +1,8 @@
+
+ - name: Cassandra role side entry point
+   hosts: localhost all
+   tasks:
+    - debug: msg="Including Cassandra role"
+    - include_role:
+         name: ../../cassandra
+

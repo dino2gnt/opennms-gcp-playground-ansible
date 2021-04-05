@@ -1,0 +1,15 @@
+- name: Ensure group "cassandra" exists
+  group:
+    name: cassandra
+    gid: 7461
+    state: present
+
+- name: Create a local user for Cassandra
+  user:
+    name: cassandra
+    uid: 1001
+    shell: /sbin/nologin
+    group: cassandra
+    home: /var/tmp
+    create_home: no
+    state: present
