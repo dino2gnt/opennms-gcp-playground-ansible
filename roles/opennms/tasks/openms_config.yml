@@ -55,6 +55,14 @@
     group: root
     mode: 0640
 
+ - name: Copy the newts.properties
+   template:
+    src: opennms.properties.newts
+    dest: /opt/opennms/etc/opennms.properties.d/newts.properties
+    owner: root
+    group: root
+    mode: 0640
+
  - name: Copy the kafka.properties
    template:
     src: opennms.properties.kafka

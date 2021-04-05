@@ -14,6 +14,14 @@
    when: configured.stat.exists == False
    ignore_errors: true
 
+#This will race with cassandra getting spun up, but I bet one is 
+# slower-enough than the other it won't be an issue in practice.
+#
+ - name: run the newts tool too
+   command: /opt/opennms/bin/newts init
+   when: configured.stat.exists == False
+   ignore_errors: true
+
  - name: Start it up.
    service:
     name: opennms
