@@ -1,5 +1,6 @@
 
  - include_tasks: cassandra_disk.yml
+ - include_tasks: fdisk.yml
  - include_tasks: user.yml
  - include_tasks: swap.yml
  - include_tasks: limits.yml
