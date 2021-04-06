@@ -31,6 +31,18 @@
     group: root
     mode: 0640
 
+ - name: fix poller config for Cassandra (i don't feel like templating this out)
+   replace:
+    path: /opt/opennms/etc/poller-configuration.xml
+    regex: "cassandra-username"
+    replace: "opennms"
+
+ - name: fix poller config for Cassandra
+   replace:
+    path: /opt/opennms/etc/poller-configuration.xml
+    regex: "cassandra-password"
+    replace: "opennms"
+
  - name: Copy the discovery-configuration.xml
    template:
     src: discovery-configuration.xml
