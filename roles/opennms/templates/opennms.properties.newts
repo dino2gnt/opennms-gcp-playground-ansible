@@ -1,3 +1,8 @@
+
+org.opennms.rrd.storeByGroup=true
+org.opennms.rrd.storeByForeignSource=true
+org.opennms.timeseries.strategy=newts
+
 ###### Newts #####
 # Use these properties to configure persistence using Newts
 # Note that Newts must be enabled using the 'org.opennms.timeseries.strategy' property
