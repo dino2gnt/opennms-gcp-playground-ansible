@@ -1,0 +1,612 @@
+<jdbc-datacollection-config xmlns="http://xmlns.opennms.org/xsd/config/jdbc-datacollection" rrdRepository="/opt/opennms/share/rrd/snmp/">
+   <jdbc-collection name="default">
+      <rrd step="300">
+         <rra>RRA:AVERAGE:0.5:1:2016</rra>
+         <rra>RRA:AVERAGE:0.5:12:1488</rra>
+         <rra>RRA:AVERAGE:0.5:288:366</rra>
+         <rra>RRA:MAX:0.5:288:366</rra>
+         <rra>RRA:MIN:0.5:288:366</rra>
+      </rrd>
+      <queries>
+         <query name="opennmsQuery" recheckInterval="0" ifType="ignore">
+            <statement>
+               <queryString>SELECT COUNT(eventid) as EventCount
+FROM events
+WHERE eventtime
+BETWEEN (CURRENT_TIMESTAMP - INTERVAL '1 day')
+AND CURRENT_TIMESTAMP;</queryString>
+            </statement>
+            <columns>
+               <column name="eventCount" data-source-name="EventCount" type="gauge" alias="OnmsEventCount"/>
+            </columns>
+         </query>
+         <query name="opennmsNodeQuery" recheckInterval="0" ifType="ignore">
+            <statement>
+               <queryString>SELECT COUNT(*) as NodeCount FROM node WHERE nodetype != 'D';</queryString>
+            </statement>
+            <columns>
+               <column name="nodeCount" data-source-name="NodeCount" type="gauge" alias="OnmsNodeCount"/>
+            </columns>
+         </query>
+      </queries>
+   </jdbc-collection>
+   <jdbc-collection name="MySQL-Global-Stats-51">
+      <rrd step="300">
+         <rra>RRA:AVERAGE:0.5:1:2016</rra>
+         <rra>RRA:AVERAGE:0.5:12:1488</rra>
+         <rra>RRA:AVERAGE:0.5:288:366</rra>
+         <rra>RRA:MAX:0.5:288:366</rra>
+         <rra>RRA:MIN:0.5:288:366</rra>
+      </rrd>
+      <queries>
+         <query name="Q_MyUptime" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'UPTIME'</queryString>
+            </statement>
+            <columns>
+		    <column name="UPTIME" data-source-name="Value" alias="MyUptime" type="GAUGE"/>
+            </columns>
+         </query>
+         <query name="Q_MyBytesReceived" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'BYTES_RECEIVED'</queryString>
+            </statement>
+            <columns>
+		    <column name="BYTES_RECEIVED" data-source-name="Value" alias="MyBytesReceived" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_MyBytesSent" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'BYTES_SENT'</queryString>
+            </statement>
+            <columns>
+		    <column name="BYTES_SENT" data-source-name="Value" alias="MyBytesSent" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Com_delete" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'COM_DELETE'</queryString>
+            </statement>
+            <columns>
+		    <column name="COM_DELETE" data-source-name="Value" alias="MyComDelete" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Com_delete_multi" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'COM_DELETE_MULTI'</queryString>
+            </statement>
+            <columns>
+		    <column name="COM_DELETE_MULTI" data-source-name="Value" alias="MyComDeleteMulti" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Com_insert" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'COM_INSERT'</queryString>
+            </statement>
+            <columns>
+		    <column name="COM_INSERT" data-source-name="Value" alias="MyComInsert" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Com_insert_select" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'COM_INSERT_SELECT'</queryString>
+            </statement>
+            <columns>
+		    <column name="COM_INSERT_SELECT" data-source-name="Value" alias="MyComInsertSelect" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Com_select" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'COM_SELECT'</queryString>
+            </statement>
+            <columns>
+		    <column name="COM_SELECT" data-source-name="Value" alias="MyComSelect" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Com_stmt_execute" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'COM_STMT_EXECUTE'</queryString>
+            </statement>
+            <columns>
+		    <column name="COM_STMT_EXECUTE" data-source-name="Value" alias="MyComStmtExecute" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Com_update" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'COM_UPDATE'</queryString>
+            </statement>
+            <columns>
+		    <column name="COM_UPDATE" data-source-name="Value" alias="MyComUpdate" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Com_update_multi" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'COM_UPDATE_MULTI'</queryString>
+            </statement>
+            <columns>
+		    <column name="COM_UPDATE_MULTI" data-source-name="Value" alias="MyComUpdateMulti" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Created_tmp_disk_tables" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'CREATED_TMP_DISK_TABLES'</queryString>
+            </statement>
+            <columns>
+		    <column name="CREATED_TMP_DISK_TABLES" data-source-name="Value" alias="MyCreatTmpDiskTbl" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Created_tmp_tables" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'CREATED_TMP_TABLES'</queryString>
+            </statement>
+            <columns>
+		    <column name="CREATED_TMP_TABLES" data-source-name="Value" alias="MyCreatTmpTables" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_key_buffer_size" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL VARIABLES WHERE VARIABLE_NAME ='KEY_BUFFER_SIZE'</queryString>
+            </statement>
+            <columns>
+		    <column name="KEY_BUFFER_SIZE" data-source-name="Value" alias="MyKeyBufferSize" type="GAUGE"/>
+            </columns>
+         </query>
+         <query name="Q_key_cache_block_size" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL VARIABLES WHERE VARIABLE_NAME ='KEY_CACHE_BLOCK_SIZE'</queryString>
+            </statement>
+            <columns>
+		    <column name="KEY_CACHE_BLOCK_SIZE" data-source-name="Value" alias="MyKeyCacheBlkSize" type="GAUGE"/>
+            </columns>
+         </query>
+         <query name="Q_Key_blocks_unused" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'KEY_BLOCKS_UNUSED'</queryString>
+            </statement>
+            <columns>
+		    <column name="KEY_BLOCKS_UNUSED" data-source-name="Value" alias="MyKeyBlkUnused" type="GAUGE"/>
+            </columns>
+         </query>
+         <query name="Q_Key_read_requests" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'KEY_READ_REQUESTS'</queryString>
+            </statement>
+            <columns>
+		    <column name="KEY_READ_REQUESTS" data-source-name="Value" alias="MyKeyReadReqs" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Key_reads" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'KEY_READS'</queryString>
+            </statement>
+            <columns>
+		    <column name="KEY_READS" data-source-name="Value" alias="MyKeyReads" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Key_write_requests" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'KEY_WRITE_REQUESTS'</queryString>
+            </statement>
+            <columns>
+		    <column name="KEY_WRITE_REQUESTS" data-source-name="Value" alias="MyKeyWriteReqs" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Key_writes" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'KEY_WRITES'</queryString>
+            </statement>
+            <columns>
+		    <column name="KEY_WRITES" data-source-name="Value" alias="MyKeyWrites" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Open_files" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'OPEN_FILES'</queryString>
+            </statement>
+            <columns>
+		    <column name="OPEN_FILES" data-source-name="Value" alias="MyOpenFiles" type="GAUGE"/>
+            </columns>
+         </query>
+         <query name="Q_Open_tables" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'OPEN_TABLES'</queryString>
+            </statement>
+            <columns>
+		    <column name="OPEN_TABLES" data-source-name="Value" alias="MyOpenTables" type="GAUGE"/>
+            </columns>
+         </query>
+         <query name="Q_table_open_cache" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL VARIABLES WHERE VARIABLE_NAME ='TABLE_OPEN_CACHE'</queryString>
+            </statement>
+            <columns>
+		    <column name="TABLE_OPEN_CACHE" data-source-name="Value" alias="MyTableOpenCache" type="GAUGE"/>
+            </columns>
+         </query>
+         <query name="Q_Questions" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'QUESTIONS'</queryString>
+            </statement>
+            <columns>
+		    <column name="QUESTIONS" data-source-name="Value" alias="MyQuestions" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Slow_queries" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'SLOW_QUERIES'</queryString>
+            </statement>
+            <columns>
+		    <column name="SLOW_QUERIES" data-source-name="Value" alias="MySlowQueries" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Connections" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'CONNECTIONS'</queryString>
+            </statement>
+            <columns>
+		    <column name="CONNECTIONS" data-source-name="Value" alias="MyConnections" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Threads_created" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'THREADS_CREATED'</queryString>
+            </statement>
+            <columns>
+		    <column name="THREADS_CREATED" data-source-name="Value" alias="MyThreadsCreatd" type="COUNTER"/>
+            </columns>
+         </query>
+         <query name="Q_Threads_cached" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'THREADS_CACHED'</queryString>
+            </statement>
+            <columns>
+		    <column name="THREADS_CACHED" data-source-name="Value" alias="MyThreadsCachd" type="GAUGE"/>
+            </columns>
+         </query>
+         <query name="Q_Threads_connected" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'THREADS_CONNECTED'</queryString>
+            </statement>
+            <columns>
+		    <column name="THREADS_CONNECTED" data-source-name="Value" alias="MyThreadsCnnctd" type="GAUGE"/>
+            </columns>
+         </query>
+         <query name="Q_Threads_running" recheckInterval="0" ifType="ignore">
+            <statement>
+		    <queryString>SHOW GLOBAL STATUS WHERE VARIABLE_NAME = 'THREADS_RUNNING'</queryString>
+            </statement>
+            <columns>
+		    <column name="THREADS_RUNNING" data-source-name="Value" alias="MyThreadsRunng" type="GAUGE"/>
+            </columns>
+         </query>
+      </queries>
+   </jdbc-collection>
+   <jdbc-collection name="PostgreSQL">
+      <rrd step="300">
+         <rra>RRA:AVERAGE:0.5:1:2016</rra>
+         <rra>RRA:AVERAGE:0.5:12:1488</rra>
+         <rra>RRA:AVERAGE:0.5:288:366</rra>
+         <rra>RRA:MAX:0.5:288:366</rra>
+         <rra>RRA:MIN:0.5:288:366</rra>
+      </rrd>
+      <queries>
+         <query name="pg_tablespace_size" recheckInterval="0" ifType="all" resourceType="pgTableSpace" instance-column="spcname">
+            <statement>
+               <queryString>
+                    SELECT spcname, pg_tablespace_size(pg_tablespace.spcname) AS ts_size
+                    FROM pg_tablespace
+		    WHERE spcname NOT IN ('pg_global');
+                    </queryString>
+            </statement>
+            <columns>
+               <column name="spcname" data-source-name="spcname" type="string" alias="spcname"/>
+               <column name="ts_size" data-source-name="ts_size" type="gauge" alias="ts_size"/>
+            </columns>
+         </query>
+         <query name="pg_stat_database" recheckInterval="0" ifType="all" resourceType="pgDatabase" instance-column="datname">
+            <statement>
+               <queryString>
+                    SELECT datname, numbackends, xact_commit, xact_rollback, blks_read, blks_hit,
+                           pg_database_size(pg_stat_database.datname) AS db_size
+                    FROM pg_stat_database
+                    WHERE datname NOT IN ('template0', 'template1');
+                    </queryString>
+            </statement>
+            <columns>
+               <column name="datname" data-source-name="datname" type="string" alias="datname"/>
+               <column name="numbackends" data-source-name="numbackends" type="gauge" alias="numbackends"/>
+               <column name="xact_commit" data-source-name="xact_commit" type="counter" alias="xact_commit"/>
+               <column name="xact_rollback" data-source-name="xact_rollback" type="counter" alias="xact_rollback"/>
+               <column name="blks_read" data-source-name="blks_read" type="counter" alias="blks_read"/>
+               <column name="blks_hit" data-source-name="blks_hit" type="counter" alias="blks_hit"/>
+               <column name="db_size" data-source-name="db_size" type="gauge" alias="db_size"/>
+                </columns>
+            </query>
+            <query name="pg_stat_query" ifType="all" resourceType="pgDatabase" instance-column="datname">
+                <statement>
+                    <queryString>
+		     SELECT datname, tup_returned, tup_fetched, tup_inserted, tup_updated, tup_deleted 
+		     FROM pg_stat_database 
+		     WHERE datname NOT IN ('template0', 'template1');
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="datname" data-source-name="datname" alias="datname" type="string"/>
+                    <column name="tup_returned" data-source-name="tup_returned" alias="tup_returned" type="counter"/>
+                    <column name="tup_fetched" data-source-name="tup_fetched" alias="tup_fetched" type="counter"/>
+                    <column name="tup_inserted" data-source-name="tup_inserted" alias="tup_inserted" type="counter"/>
+                    <column name="tup_updated" data-source-name="tup_updated" alias="tup_updated" type="counter"/>
+                    <column name="tup_deleted" data-source-name="tup_deleted" alias="tup_deleted" type="counter"/>
+                </columns>
+            </query>
+        </queries>
+    </jdbc-collection>
+    <jdbc-collection name="Oracle-JDBC">
+        <rrd step="300">
+            <rra>RRA:AVERAGE:0.5:1:2016</rra>
+            <rra>RRA:AVERAGE:0.5:12:1488</rra>
+            <rra>RRA:AVERAGE:0.5:288:366</rra>
+            <rra>RRA:MAX:0.5:288:366</rra>
+            <rra>RRA:MIN:0.5:288:366</rra>
+        </rrd>
+        <queries>
+            <query name="ora_archive_mode" ifType="all" resourceType="oraDBStats" instance-column="name">
+                <statement>
+                    <queryString>
+		      SELECT name, CASE WHEN log_mode='ARCHIVELOG' THEN 1 ELSE 0 END AS ora_log_mode FROM v$database
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="ora_log_mode" data-source-name="ora_log_mode" alias="ora_log_mode" type="gauge"/>
+                </columns>
+            </query>
+            <query name="ora_recoveryspace" ifType="all" resourceType="oraDBStats" instance-column="database_name">
+	      <statement>
+                    <queryString>
+		      SELECT d.name database_name, pctavail FROM (SELECT (100 - sum(percent_space_used)) + sum(percent_space_reclaimable) pctavail FROM v$flash_recovery_area_usage), v$database d UNION SELECT '1', 100 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="PCTAVAIL" data-source-name="PCTAVAIL" alias="fra_percent_avail" type="gauge"/>
+                </columns>
+            </query>
+              <query name="ora_blockcorruption" ifType="all"  resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+		      SELECT d.name database_name, badblocks FROM (SELECT count(*) BADBLOCKS FROM v$database_block_corruption ORDER BY file#, block#) , v$database d UNION SELECT '1', 0 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="BADBLOCKS" data-source-name="BADBLOCKS" alias="block_corruption" type="gauge"/>
+                </columns>
+            </query>
+              <query name="ora_accountexpiry" ifType="all" resourceType="oraAccountExp" instance-column="username">
+                <statement>
+                    <queryString>
+		      SELECT username, expiry_date, account_status, TRUNC(expiry_date - sysdate) when FROM dba_users WHERE account_status IN ('OPEN', 'EXPIRED(GRACE)') AND expiry_date IS NOT NULL ORDER BY username
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="username" data-source-name="username" alias="username" type="string"/>
+                    <column name="expiry_date" data-source-name="expiry_date" alias="expiry_date" type="string"/>
+                    <column name="account_status" data-source-name="account_status" alias="account_status" type="string"/>
+                    <column name="when" data-source-name="when" alias="exp_when" type="gauge"/>
+                </columns>
+            </query>
+              <query name="ora_failedlogins" ifType="ignore" resourceType="oraFailedLogins" instance-column="name">
+                <statement>
+                    <queryString>
+		      SELECT CONCAT(CONCAT(d.name,'\'), u.name) name, u.lcount lcount FROM sys.user$ u, v$database d WHERE u.lcount &gt; 0 and u.name != 'ODSSM'
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="NAME" data-source-name="NAME" alias="username" type="string"/>
+		    <column name="LCOUNT" data-source-name="LCOUNT" alias="fail_count" type="gauge"/>
+                </columns>
+            </query>
+              <query name="ora_recentbackup" ifType="all" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+		      SELECT d.name database_name, backupsets FROM ( SELECT count(*) backupsets FROM v$backup_set_summary WHERE newest_backup_time &lt; SYSDATE - 1), v$database d UNION SELECT '1', 0 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="BACKUPSETS" data-source-name="BACKUPSETS" alias="orabackuplag_days" type="gauge"/>
+                </columns>
+            </query>
+              <query name="ora_InvalidObjects" ifType="all" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+		      SELECT d.name database_name, total_invalidobj FROM ( select count(*) total_invalidobj FROM dba_objects WHERE status = 'INVALID'), v$database d UNION SELECT '1', 0 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="total_invalidobj" data-source-name="total_invalidobj" alias="total_invalidobj" type="gauge"/>
+                </columns>
+            </query>
+              <query name="ora_InvalidIndex" ifType="all" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+		      SELECT d.name database_name, total_invalididx FROM ( select count(*) total_invalididx FROM dba_indexes WHERE status = 'UNUSABLE'), v$database d UNION SELECT '1', 0 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="total_invalididx" data-source-name="total_invalididx" alias="total_invalididx" type="gauge"/>
+                </columns>
+            </query>
+              <query name="ora_TmpTableSpace" ifType="all" resourceType="oraTableSpace" instance-column="tablespace_name">
+                <statement>
+                    <queryString>
+		     SELECT CONCAT(CONCAT(d.name, '\'), t.tablespace_name) tablespace_name, t.file_name, TRUNC(maxbytes / 1024 / 1024) maxbytes, (TRUNC(maxbytes / 1024 / 1024) - TRUNC(bytes / 1024 / 1024)) bytes, TRUNC(bytes/maxbytes * 100) pctused FROM dba_temp_files t, v$database d where maxbytes != 0 UNION SELECT '1', '2',1,1,0 FROM DUAL 
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="tablespace_name" data-source-name="tablespace_name" alias="tablespace_name" type="string"/>
+                   <!-- <column name="file_name" data-source-name="file_name" alias="tmpts_file_name" type="string"/> -->
+                    <column name="maxbytes" data-source-name="maxbytes" alias="sizemb" type="gauge"/>
+                    <column name="bytes" data-source-name="bytes" alias="freemb" type="gauge"/>
+                    <column name="PCTUSED" data-source-name="PCTUSED" alias="pctused" type="gauge"/>
+                </columns>
+            </query>
+              <query name="ora_TableSpace" ifType="all" resourceType="oraTableSpace" instance-column="tablespace_name">
+                <statement>
+                    <queryString>
+		      select CONCAT(CONCAT(d.name, '\'), b.tablespace_name) tablespace_name, tbs_size SizeMb, a.free_space FreeMb, (100 - TRUNC(free_space/tbs_size * 100)) pctused 
+			from 
+				(select tablespace_name, round(sum(bytes)/1024/1024 ,2) as free_space from dba_free_space group by tablespace_name) a, 
+				(select tablespace_name, sum(bytes)/1024/1024 as tbs_size from dba_data_files group by tablespace_name) b, 
+				v$database d 
+			where a.tablespace_name(+)=b.tablespace_name 
+				AND b.tablespace_name not like '%UNDO%' 
+				AND a.tablespace_name NOT LIKE '%UNDO%'
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="tablespace_name" data-source-name="tablespace_name" alias="tablespace_name" type="string"/>
+                    <column name="sizemb" data-source-name="sizemb" alias="sizemb" type="gauge"/>
+                    <column name="freemb" data-source-name="freemb" alias="freemb" type="gauge"/>
+                    <column name="pctused" data-source-name="pctused" alias="pctused" type="gauge"/>
+                </columns>
+            </query>
+              <query name="ora_UserCommits" ifType="ignore" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+			select d.name database_name, n.name, s.value from v$database d, v$statname n,  v$sysstat s where n.statistic# = s.statistic# AND N.NAME='user commits' UNION SELECT TO_CHAR(1), TO_CHAR(2), 3 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="database_name" data-source-name="database_name" alias="database_name" type="string"/>
+                    <column name="ora_usrcommits" data-source-name="VALUE" alias="ora_usrcommits" type="counter"/>
+                </columns>
+            </query>
+              <query name="ora_Rollbacks" ifType="ignore" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+                        select d.name database_name, n.name, s.value from v$database d,  v$statname n, v$sysstat s where n.statistic# = s.statistic# AND N.NAME='user rollbacks' UNION SELECT TO_CHAR(1), TO_CHAR(2), 3 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="database_name" data-source-name="database_name" alias="database_name" type="string"/>
+                    <column name="ora_rollbacks" data-source-name="VALUE" alias="ora_rollbacks" type="counter"/>
+                </columns>
+            </query>
+              <query name="ora_UserCalls" ifType="ignore" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+                        select d.name database_name, n.name, s.value from v$database d, v$statname n,  v$sysstat s where n.statistic# = s.statistic# AND N.NAME='user calls' UNION SELECT TO_CHAR(1), TO_CHAR(2), 3 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="database_name" data-source-name="database_name" alias="database_name" type="string"/>
+                    <column name="ora_usrcalls" data-source-name="VALUE" alias="ora_usrcalls" type="counter"/>
+                </columns>
+            </query>
+              <query name="ora_RecursiveCalls" ifType="ignore" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+                        select d.name database_name, n.name, s.value from v$database d, v$statname n,  v$sysstat s where n.statistic# = s.statistic# AND N.NAME='recursive calls' UNION SELECT TO_CHAR(1), TO_CHAR(2), 3 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="database_name" data-source-name="database_name" alias="database_name" type="string"/>
+                    <column name="ora_rcrsvcalls" data-source-name="VALUE" alias="ora_rcrsvcalls" type="counter"/>
+                </columns>
+            </query>
+              <query name="ora_PhysicalReadBytes" ifType="ignore" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+                        select d.name database_name, n.name, s.value from v$database d, v$statname n,  v$sysstat s where n.statistic# = s.statistic# AND N.NAME='physical read bytes' UNION SELECT TO_CHAR(1), TO_CHAR(2), 3 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="database_name" data-source-name="database_name" alias="database_name" type="string"/>
+                    <column name="ora_readbytes" data-source-name="VALUE" alias="ora_readbytes" type="counter"/>
+                </columns>
+            </query>
+              <query name="ora_PhysicalWriteBytes" ifType="ignore" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+                        select d.name database_name, n.name, s.value from v$database d, v$statname n, v$sysstat s where n.statistic# = s.statistic# AND N.NAME='physical write bytes' UNION SELECT TO_CHAR(1), TO_CHAR(2), 3 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="database_name" data-source-name="database_name" alias="database_name" type="string"/>
+                    <column name="ora_writebytes" data-source-name="VALUE" alias="ora_writebytes" type="counter"/>
+                </columns>
+            </query>
+              <query name="ora_RedoSize" ifType="ignore" resourceType="oraDBStats" instance-column="database_name">
+                <statement>
+                    <queryString>
+                        select d.name database_name, n.name, s.value from v$database d, v$statname n, v$sysstat s where n.statistic# = s.statistic# AND N.NAME='redo size' UNION SELECT TO_CHAR(1), TO_CHAR(2), 3 from DUAL
+                    </queryString>
+                </statement>
+                <columns>
+                    <column name="database_name" data-source-name="database_name" alias="database_name" type="string"/>
+                    <column name="ora_redosize" data-source-name="VALUE" alias="ora_redosize" type="counter"/>
+            </columns>
+         </query>
+      </queries>
+   </jdbc-collection>
+   <jdbc-collection name="SQLServer-JDBC">
+      <rrd step="300">
+         <rra>RRA:AVERAGE:0.5:1:2016</rra>
+         <rra>RRA:AVERAGE:0.5:12:1488</rra>
+         <rra>RRA:AVERAGE:0.5:288:366</rra>
+         <rra>RRA:MAX:0.5:288:366</rra>
+         <rra>RRA:MIN:0.5:288:366</rra>
+      </rrd>
+      <!-- # java -cp ./mssql-jdbc-7.2.1.jre8.jar:. com.tester.tester
+           Created DB Connection....
+Executing query: SELECT st.logical_volume_name,volume_mount_point, total_bytes/1024/1024/1024 as TotalSizeGB, available_bytes/1024/1024/1024 as AvailableGB FROM sys.master_files AS f CROSS APPLY sys.dm_os_volume_stats(f.database_id, f.file_id) st GROUP BY st.logical_volume_name,volume_mount_point, total_bytes, available_bytes
+logical_volume_name New Volume,  volume_mount_point E:\,  TotalSizeGB 449,  AvailableGB 299
+logical_volume_name New Volume,  volume_mount_point F:\,  TotalSizeGB 999,  AvailableGB 585
+-->
+      <queries>
+      <query name="msSQLDriveSpace" ifType="ignore" resourceType="msSQLspace" instance-column="logical_volume_name">
+          <statement>
+              <queryString>
+		SELECT st.logical_volume_name,volume_mount_point, total_bytes/1024/1024/1024 as TotalSizeGB, available_bytes/1024/1024/1024 as AvailableGB FROM sys.master_files AS f CROSS APPLY sys.dm_os_volume_stats(f.database_id, f.file_id) st GROUP BY st.logical_volume_name,volume_mount_point, total_bytes, available_bytes
+              </queryString>
+          </statement>
+          <columns>
+              <column name="logical_volume_name" data-source-name="logical_volume_name" alias="lvolname" type="string"/>
+              <column name="volume_mount_point" data-source-name="volume_mount_point" alias="mntpoint" type="string"/>
+              <column name="TotalSizeGB" data-source-name="TotalSizeGB" alias="sizeGB" type="gauge"/>
+              <column name="AvailableGB" data-source-name="AvailableGB" alias="availGB" type="gauge"/>
+          </columns>
+      </query>
+      <query name="msSQLdbsize" ifType="ignore" resourceType="msSQLstats" instance-column="name">
+          <statement>
+              <queryString>
+		select d.name, (CONVERT(BIGINT, m.size) * 8) / 1024 sizeMB from sys.master_files m join sys.databases d on d.database_id = m.database_id and m.type = 0
+              </queryString>
+          </statement>
+          <columns>
+              <column name="name" data-source-name="name" alias="name" type="string"/>
+              <column name="sizeMB" data-source-name="sizeMB" alias="sizeMB" type="gauge"/>
+          </columns>
+      </query>
+      <query name="msSQLstats" ifType="ignore" resourceType="msSQLvfsstats" instance-column="name">
+          <statement>
+              <queryString>
+		SELECT DB_NAME(vfs.DbId) DatabaseName, mf.name, mf.physical_name, (vfs.BytesRead / 1024 ) KBRead, (vfs.BytesWritten / 1024 ) KBWritten, vfs.IoStallMS, vfs.IoStallReadMS, vfs.IoStallWriteMS, vfs.NumberReads, vfs.NumberWrites, (CONVERT(BIGINT, Size)*8)/1024 Size_MB FROM ::fn_virtualfilestats(NULL,NULL) vfs INNER JOIN sys.master_files mf ON mf.database_id = vfs.DbId AND mf.FILE_ID = vfs.FileId
+              </queryString>
+<!-- DatabaseName master,  name master,  physical_name F:\Data\MSSQL14.MSSQLSERVER\MSSQL\DATA\master.mdf,  BytesRead 891322368,  BytesWritten 119029760,  IoStallMS 119071,  IoStallReadMS 14221,  IoStallWriteMS 104850,  NumberReads 6203,  NumberWrites 7407,  Size_MB 88 -->
+          </statement>
+          <columns>
+              <column name="DatabaseName" data-source-name="DatabaseName" alias="DBname" type="string"/>
+              <column name="name" data-source-name="name" alias="name" type="string"/>
+              <column name="physical_name" data-source-name="physical_name" alias="physName" type="string"/>
+              <column name="KBRead" data-source-name="KBRead" alias="KBRead" type="counter"/>
+              <column name="KBWritten" data-source-name="KBWritten" alias="KBWritten" type="counter"/>
+              <column name="IoStallMS" data-source-name="IoStallMS" alias="IoStallMS" type="counter"/>
+              <column name="IoStallReadMS" data-source-name="IoStallReadMS" alias="IoStallReadMS" type="counter"/>
+              <column name="IoStallWriteMS" data-source-name="IoStallWriteMS" alias="IoStallWriteMS" type="counter"/>
+              <column name="NumberReads" data-source-name="NumberReads" alias="NumberReads" type="counter"/>
+              <column name="NumberWrites" data-source-name="NumberWrites" alias="NumberWrites" type="counter"/>
+              <column name="Size_MB" data-source-name="Size_MB" alias="Size_MB" type="gauge"/>
+          </columns>
+      </query>
+      </queries>
+   </jdbc-collection>
+</jdbc-datacollection-config>
