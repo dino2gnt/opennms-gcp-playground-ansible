@@ -74,7 +74,7 @@
       <detector name="MS-RDP" class="org.opennms.netmgt.provision.detector.simple.TcpDetector">
          <parameter key="port" value="3389"/>
       </detector>
-      <detector name="PostgresSQL" class="org.opennms.netmgt.provision.detector.simple.TcpDetector">
+      <detector name="PostgreSQL" class="org.opennms.netmgt.provision.detector.simple.TcpDetector">
          <parameter key="port" value="5432"/>
          <parameter key="timeout" value="3000"/>
       </detector>
