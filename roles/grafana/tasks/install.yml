@@ -1,13 +1,13 @@
 
  - name: install grafana
    yum:
-    name: grafana
-    state: latest
+    name: "grafana-{{ grafana_vers }}"
+    state: present
     disable_gpg_check: true
 
  - name: install helm
    yum:
-    name: opennms-helm
-    state: latest
+    name: "opennms-helm-{{ helm_vers }}"
+    state: present
     disable_gpg_check: true
 
