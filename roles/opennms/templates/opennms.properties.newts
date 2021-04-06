@@ -3,7 +3,7 @@
 # Note that Newts must be enabled using the 'org.opennms.timeseries.strategy' property
 # for these to take effect.
 #
-org.opennms.newts.config.hostname={{ cass_hosts }}
+org.opennms.newts.config.hostname={{ cassandra_ip }}
 org.opennms.newts.config.keyspace=newts
 org.opennms.newts.config.port=9042
 org.opennms.newts.config.username=cassandra
