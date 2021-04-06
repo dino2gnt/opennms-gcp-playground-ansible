@@ -31,6 +31,14 @@
     group: root
     mode: 0640
 
+ - name: working pgsql jdbc datacolection config
+   copy:
+    src: jdbc-datacollection-config.xml
+    dest: /opt/opennms/etc/jdbc-datacollection-config.xml
+    owner: root
+    group: root
+    mode: 0640
+
  - name: fix poller config for Cassandra (i don't feel like templating this out)
    replace:
     path: /opt/opennms/etc/poller-configuration.xml
