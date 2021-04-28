@@ -42,13 +42,13 @@
  - name: fix poller config for Cassandra (i don't feel like templating this out)
    replace:
     path: /opt/opennms/etc/poller-configuration.xml
-    regex: "cassandra-username"
+    regexp: "cassandra-username"
     replace: "opennms"
 
  - name: fix poller config for Cassandra
    replace:
     path: /opt/opennms/etc/poller-configuration.xml
-    regex: "cassandra-password"
+    regexp: "cassandra-password"
     replace: "opennms"
 
  - name: Copy the discovery-configuration.xml
