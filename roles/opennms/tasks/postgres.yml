@@ -1,7 +1,7 @@
 
  - name: Install postgres repo
    yum:
-    name: "https://ftp.postgresql.org/pub/repos/yum/common/redhat/rhel-7-x86_64/pgdg-redhat-repo-42.0-14.noarch.rpm" #this URL changes :-/
+    name: "https://ftp.postgresql.org/pub/repos/yum/common/redhat/rhel-7-x86_64/pgdg-redhat-repo-42.0-17.1.noarch.rpm" #this URL changes :-/
 
  - name: Install postgresql 10
    yum:
