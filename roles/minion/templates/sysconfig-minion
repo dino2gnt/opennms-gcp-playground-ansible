@@ -36,5 +36,8 @@ export JAVA_OPTS="-Xms512M -Xmx3g"
 
 # additional locations to look for native libraries
 # export LD_LIBRARY_PATH=
-
+JAVA_OPTS="${JAVA_OPTS} -Dcom.sun.management.jmxremote.port=18980"
+JAVA_OPTS="${JAVA_OPTS} -Dcom.sun.management.jmxremote.local.only=false"
+JAVA_OPTS="${JAVA_OPTS} -Dcom.sun.management.jmxremote.authenticate=false"
+JAVA_OPTS="${JAVA_OPTS} -Dcom.sun.management.jmxremote.ssl=false"
 export JAVA_OPTS="${JAVA_OPTS}"
